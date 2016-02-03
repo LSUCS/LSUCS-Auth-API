@@ -1,7 +1,7 @@
 <?php
 
-    require_once 'Mechanism.php';
-    require_once 'User.php';
+    require_once('Mechanism.php');
+    require_once('User.php');
 
     class Lsucs_Auth {
 
@@ -9,9 +9,9 @@
     
         public static function run() {
         
-            include 'config.php';
+            require('config.php');
             
-            self::$log = fopen('auth.log', 'a');
+            self::$log = fopen($config['log_file'], 'a');
             fputs(self::$log, date('Y-m-d H:i:s') . " Incoming request from " . $_SERVER['REMOTE_ADDR'] . "\n");
 
             //Check key
@@ -22,7 +22,7 @@
             //fputs(self::$log, "Data:\n" . print_r($_REQUEST, true) . "\n");
 
             //Load auth mechanism
-            require_once 'Mechanism/' . $config['mechanism'] . '.php';
+            require_once('Mechanism/' . $config['mechanism'] . '.php');
             $mechanism = new $config['mechanism'];
             
             //Handle api request

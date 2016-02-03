@@ -6,8 +6,12 @@
     
         public function __construct() {
             //Initiate XenForo
-            $xfDir = "/home/soc_lsucs/lsucs.org.uk/htdocs";
-            require($xfDir . '/library/XenForo/Autoloader.php');
+            require(ROOT . '/config.php');
+            
+            // Xenforo root
+            $xfDir = $config['xfdir'];
+
+            require $xfDir . '/library/XenForo/Autoloader.php';
             XenForo_Autoloader::getInstance()->setupAutoloader($xfDir. '/library');
             XenForo_Application::initialize($xfDir . '/library', $xfDir);
             XenForo_Application::set('page_start_time', microtime(true));
