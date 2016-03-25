@@ -5,21 +5,27 @@
 
     class Lsucs_Auth {
 
-        private static $log;
+        private static $logfile;
     
+        public static function log($message) {
+            if(self::$logfile)
+                fputs(self::$logfile, $message);
+        }
+
+
         public static function run() {
         
             require('config.php');
             
-            self::$log = fopen($config['log_file'], 'a');
-            fputs(self::$log, date('Y-m-d H:i:s') . " Incoming request from " . $_SERVER['REMOTE_ADDR'] . "\n");
+            self::$logfile = fopen($config['log_file'], 'a');
+            self::log(date('Y-m-d H:i:s') . " Incoming request from " . $_SERVER['REMOTE_ADDR'] . "\n");
 
             //Check key
             if (!isset($_POST["key"]) || $_POST["key"] != $config['key']) {
                 self::error(0);
             }
             
-            //fputs(self::$log, "Data:\n" . print_r($_REQUEST, true) . "\n");
+            self::log("Data:\n" . print_r($_REQUEST, true) . "\n");
 
             //Load auth mechanism
             require_once('Mechanism/' . $config['mechanism'] . '.php');
@@ -39,12 +45,12 @@
                 case 4: $message = 'Invalid parameter type'; break;
                 default: $message = 'Unknown error'; break;            
             }
-            fputs(self::$log, 'ERROR: ' . $message . "\n\n");
+            self::log('ERROR: ' . $message . "\n\n");
             self::respond(array("error" => $message, "code" => $code));
         }
         
         public static function respond($data) {
-            fputs(self::$log, "Response\n" . print_r($data, true) . "\n");
+            self::log("Response\n" . print_r($data, true) . "\n");
             die(json_encode($data));
         }
     

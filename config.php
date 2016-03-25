@@ -1,7 +1,5 @@
 <?php
     require(ROOT . '/../password.php');
-    echo "Can't find this file:";
-    echo ROOT . '../password.php';
  
     // External key for access to this API
     $config['key'] = $password;
