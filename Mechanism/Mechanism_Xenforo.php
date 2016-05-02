@@ -107,8 +107,8 @@
             
             //Avatar
             if ($xenuser["gravatar"] != "") $user->avatar = XenForo_Template_Helper_Core::getAvatarUrl($xenuser, "l");
-            else if ($xenuser["avatar_date"] != "") $user->avatar = "http://lsucs.org.uk/" . XenForo_Template_Helper_Core::getAvatarUrl($xenuser, "l", "content");
-            else $user->avatar = "http://lsucs.org.uk/" . XenForo_Template_Helper_Core::getAvatarUrl(array(), "l", "default");
+            else if ($xenuser["avatar_date"] != "") $user->avatar = "https://lsucs.org.uk/" . XenForo_Template_Helper_Core::getAvatarUrl($xenuser, "l", "content");
+            else $user->avatar = "https://lsucs.org.uk/" . XenForo_Template_Helper_Core::getAvatarUrl(array(), "l", "default");
             
             return $user;
         }
